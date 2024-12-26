@@ -8,7 +8,6 @@ A robust backend API service built with Deno, providing endpoints for managing m
 - **Web Framework**: [Hono](https://hono.dev/)
 - **Database**: [MongoDB](https://www.mongodb.com/)
 - **ODM**: Mongoose
-- **Authentication**: JWT
 
 ## Prerequisites
 
@@ -55,24 +54,23 @@ The API will be available at `http://localhost:3000`
 ## Available API Routes
 
 ### Users
-- `POST /api/users/register` - Register a new user
-- `POST /api/users/login` - User login
-- `GET /api/users/profile` - Get user profile
-- `PUT /api/users/profile` - Update user profile
+- `POST /user/register` - Register a new user
+- `POST /user/login` - User login
+- `GET /user/:id` - Get user profile by id
+- `PUT /user/update-bio/:id` - Update user bio
+- `PUT /user/change-pasword/:id` - change password
 
 ### Messages
-- `GET /api/messages` - Get all messages
-- `POST /api/messages` - Create a new message
+- `GET /messages` - Get all messages
+- `POST /messages` - Create a new message
 - `GET /api/messages/:id` - Get a specific message
-- `PUT /api/messages/:id` - Update a message
-- `DELETE /api/messages/:id` - Delete a message
+- `PUT /messages/:id` - Update a message
+- `DELETE /messages/:id` - Delete a message
+- `PATCH /messages/:id/like - Add like to message
 
 ### Comments
-- `GET /api/comments` - Get all comments
-- `POST /api/comments` - Create a new comment
-- `GET /api/comments/:id` - Get a specific comment
-- `PUT /api/comments/:id` - Update a comment
-- `DELETE /api/comments/:id` - Delete a comment
+- `GET /messages/:id/comments` - Get all comments
+- `POST /messages/:id/comments` - Create a new comment
 
 ## Development Commands
 

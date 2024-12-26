@@ -36,7 +36,6 @@ Create a `.env` file in the root directory with the following variables:
 ```env
 MONGODB_URI=mongodb://localhost:27017/your_database
 PORT=3000
-JWT_SECRET=your_jwt_secret
 ```
 
 ## Development Setup

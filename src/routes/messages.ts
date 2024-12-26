@@ -15,14 +15,33 @@ messages.post('/', async (c) => {
   return c.json(message, 201);
 });
 
-// Ambil semua pesan
+// ambil pesan dengan pagination per 10 dan di sorting ke yang terbaru
 messages.get('/', async (c) => {
-    const allMessages = await Message.find();
-    if (allMessages.length === 0) {
-      return c.json({ message: 'No messages found' });
-    }
-    return c.json(allMessages);
-  });
+  const page = parseInt(c.req.query('page') || '1'); // Halaman saat ini, default 1
+  const limit = 10; // Jumlah data per halaman
+
+  try {
+    // Hitung total data
+    const totalMessages = await Message.countDocuments();
+
+    // Ambil data untuk halaman tertentu dengan sorting
+    const messages = await Message.find()
+      .sort({ createdAt: -1 }) // Urutkan berdasarkan waktu terbaru
+      .skip((page - 1) * limit) // Lewati data berdasarkan halaman
+      .limit(limit); // Ambil sejumlah data sesuai limit
+
+    // Respons hasil
+    return c.json({
+      totalMessages, // Total semua pesan
+      totalPages: Math.ceil(totalMessages / limit), // Total halaman
+      currentPage: page, // Halaman saat ini
+      messages, // Data pesan untuk halaman ini
+    });
+  } catch (error) {
+    return c.json({ error: 'Something went wrong' }, 500);
+  }
+});
+
 
   // Ambil pesan berdasarkan ID
 messages.get('/:id', async (c) => {
